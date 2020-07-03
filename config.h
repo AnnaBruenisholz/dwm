@@ -71,10 +71,13 @@ static const Layout layouts[] = {
  	{ "[@]",      spiral },	   /* first entry is default */
  	{ "[\\]",     dwindle },
 	{ "[]=",      tile },
+	{ "TTT",      bstack },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "TTT",      bstack },
+	{ "|M|",	centeredmaster },		/* Master in middle, slaves on sides */
+	{ ">M>",	centeredfloatingmaster },	/* Same but master floats */
 	{ "===",      bstackhoriz },
+	{ NULL,       NULL },
 };
 
 /* key definitions */
