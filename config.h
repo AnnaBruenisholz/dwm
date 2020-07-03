@@ -1,25 +1,50 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int snap      = 10;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 10;       /* vertical padding of bar */
-static const int sidepad            = 10;       /* horizontal padding of bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const int sidepad            = 20;       /* horizontal padding of bar */
+static const char *fonts[]          = { "monospace:size=13",
+					"IPAGothic:size=13",
+					"symbola:size=13"};
+static const char dmenufont[]       = "monospace:size=13";
 static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+#define bblack "#000000"
+#define nord0 "#2E3440"
+#define nord1 "#3B4252"
+#define nord2 "#434C5E"
+#define nord3 "#4C566A"
+#define nord4 "#D8DEE9"
+#define nord5 "#E5E9F0"
+#define nord6 "#ECEFF4"
+#define nord7 "#8FBCBB"
+#define nord8 "#88C0D0"
+#define nord9 "#81A1C1"
+#define nord10 "#5E81AC"
+#define nord11 "#BF616A"
+#define nord12 "#D08770"
+#define nord13 "#EBCB8B"
+#define nord14 "#A3BE8C"
+#define nord15 "#B48EAD"
+
+static char normfgcolor[] = nord4;
+static char normbgcolor[] = nord0;
+static char normbordercolor[] = nord2;
+
+static char selfgcolor[] = nord6;
+static char selbgcolor[] = nord10;
+static char selbordercolor[] = nord4;
+
 static const char col_urgborder[]   = "#ff0000";
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-	[SchemeUrg]  = { col_gray4, col_cyan,  col_urgborder  },
+	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+        [SchemeUrg]  = { normfgcolor, normbgcolor,  col_urgborder},
 };
 
 /* tagging */
@@ -65,7 +90,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
