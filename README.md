@@ -2,8 +2,30 @@ dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
 
-This is my personal build of it. I'm currently trying to build it up from the original source from suckless.org instead of forking from Lukes version.
-This is not complete yet, if you want to look at my version of dwm that is usable, go to [my old build](https://github.com/AlexBocken/dwm_old) forked from Luke's version
+This is my personal build of dwm, with my own keybindings (I don't use a seperate key handler like sxhkd anymore) and various patches applied.
+The patches are all listed in the `patches` folder of this repository.
+Most of them are directly from suckless's website, but some smaller ones I've added as well to make porting easier.
+Previously [I used to fork my build from Luke's build](https://github.com/AlexBocken/dwm_old) of dwm. Many of my keybinds have their origin from that build.
+This build has the [nord theme](https://www.nordtheme.com/) colors integrated (I prefer not using the xrdb patch)
+
+
+Patches
+-----------
+- urgend border
+- actual fullscreen
+- barpadding
+- bottomstack layout
+- centered master layout
+- deck layout
+- fibonacci layout
+- hide vacant tags layout
+- info section of bar always uses normal scheme (personal)
+- movestack
+- status bar on all monitors (personal)
+- sticky
+- swap focus
+- warp mouse to center of focussed window
+
 
 Requirements
 ------------
