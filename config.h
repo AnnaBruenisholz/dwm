@@ -73,12 +73,11 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },      /* Default: Master on left, slaves on right */
 	{ "H[]",	deck },			/* Master on left, slaves in monocle-like mode on right */
 	{ "TTT",      bstack },	   /* Master on top, slaves on bottom */
-
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
 	{ "|M|",	centeredmaster },		/* Master in middle, slaves on sides */
 	{ ">M>",	centeredfloatingmaster },	/* Same but master floats */
+	{ "[M]",      monocle },
 	{ "===",      bstackhoriz },
+	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
 
@@ -144,10 +143,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_o,		incnmaster,     {.i = -1 } },
 	{ MODKEY,			XK_p,			spawn,		SHCMD("mpc toggle; pkill -RTMIN+11 dwmblocks") },
 	{ MODKEY|ShiftMask,		XK_p,			spawn,		SHCMD("mpc pause ; pauseallmpv; pkill -RTMIN+11 dwmblocks") },
-//	{ MODKEY,			XK_bracketleft,		spawn,		SHCMD("mpc seek -10; pkill -RTMIN+11 dwmblocks") },
-//	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -120; pkill -RTMIN+11 dwmblocks") },
-//	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10; pkill -RTMIN+11 dwmblocks") },
-//	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +120; pkill -RTMIN+11 dwmblocks") },
+	/* { MODKEY,			XK_bracketleft,		spawn,		SHCMD("mpc seek -10; pkill -RTMIN+11 dwmblocks") }, */
+	/* { MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -120; pkill -RTMIN+11 dwmblocks") }, */
+	/* { MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10; pkill -RTMIN+11 dwmblocks") }, */
+	/* { MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +120; pkill -RTMIN+11 dwmblocks") }, */
 	{ MODKEY,			XK_backslash,		view,		{0} },
 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_a,		spawn,		SHCMD("st pulsemixer ; pkill -RTMIN+10 dwmblocks") },
@@ -175,9 +174,9 @@ static Key keys[] = {
 	/* { MODKEY,			XK_apostrophe,	spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_apostrophe,	spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_Return,	spawn,		{.v = termcmd } },
-	//{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.v = scratchpadcmd } },
-	//{ MODKEY,			XK_z,		incrgaps,	{.i = +1 } },
-	//{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -1 } },
+	/*{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.v = scratchpadcmd } },*/
+	/*{ MODKEY,			XK_z,		incrgaps,	{.i = +1 } },*/
+	/*{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -1 } },*/
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & xset dpms force off; mpc pause ; pauseallmpv") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
 	{ MODKEY,			XK_c,		spawn,		SHCMD("st -e echo \"print Calculator\\n\" | bc -liq") },
@@ -205,8 +204,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_F1,		spawn,		SHCMD("dmenuunicode") },
 	{ MODKEY,			XK_F2,		quit,		{0} },
 	{ MODKEY,			XK_F3,		spawn,		SHCMD("displayselect") },
-	/* { MODKEY,			XK_F4,		spawn,		SHCMD("") }, */
-	/*{ MODKEY,			XK_F5,		xrdb,		{.v = NULL } },*/
+	{ MODKEY,			XK_F4,		spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
+	{ MODKEY,			XK_F5,		spawn,		SHCMD("bt") },
 	{ MODKEY,			XK_F6,		spawn,		SHCMD("passmenu2") },
 	{ MODKEY,			XK_F7,		spawn,		SHCMD("ethvpn") },
 	{ MODKEY,			XK_F8,		spawn,		SHCMD("mailsync; pkill -RTMIN+13 dwmblocks") },
