@@ -23,7 +23,6 @@ Patches
 - movestack
 - status bar on all monitors (personal)
 - sticky
-- swap focus
 - warp mouse to center of focussed window
 - scratchpads
 
