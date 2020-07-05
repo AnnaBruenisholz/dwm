@@ -25,6 +25,7 @@ Patches
 - sticky
 - swap focus
 - warp mouse to center of focussed window
+- scratchpads
 
 
 Requirements

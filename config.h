@@ -11,7 +11,6 @@ static const char *fonts[]          = { "monospace:size=13",
 					"IPAGothic:size=13",
 					"symbola:size=13"};
 static const char dmenufont[]       = "monospace:size=13";
-static const char col_gray1[]       = "#222222";
 #define bblack "#000000"
 #define nord0 "#2E3440"
 #define nord1 "#3B4252"
@@ -47,17 +46,30 @@ static const char *colors[][3]      = {
         [SchemeUrg]  = { normfgcolor, normbgcolor,  col_urgborder},
 };
 
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {"st", "-n", "scratchpadterm", "-t", "Scratchpad", "-g", "120x34", NULL };
+const char *spcmd2[] = {"st", "-n", "scratchcalc", "-t", "Calculator", "-g", "120x34", "-e", "dropdowncalc", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"scratchpad",    spcmd1},
+	{"dropdowncalc",      spcmd2},
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      instance    		title      	 tags mask    	 isfloating   		monitor */
+	{ "Gimp",	  NULL,			NULL,		0,			1,			 -1 },
+	{ "Firefox",  	  NULL,			NULL,		1 << 8,			0,			 -1 },
+	{ NULL,		  "scratchpadterm",		NULL,		SPTAG(0),		1,			 -1 },
+	{ NULL,		  "scratchcalc",       NULL,		SPTAG(1),		1,			 -1 },
 };
 
 /* layout(s) */
@@ -174,8 +186,8 @@ static Key keys[] = {
 	/* { MODKEY,			XK_apostrophe,	spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_apostrophe,	spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_Return,	spawn,		{.v = termcmd } },
-	/*{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.v = scratchpadcmd } },*/
-	/*{ MODKEY,			XK_z,		incrgaps,	{.i = +1 } },*/
+	{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.ui = 0 } },
+	{ MODKEY,			XK_z,		togglescratch,	{.ui = 1 } },
 	/*{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -1 } },*/
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & xset dpms force off; mpc pause ; pauseallmpv") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
@@ -265,7 +277,7 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY,         Button1,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
