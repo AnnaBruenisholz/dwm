@@ -162,7 +162,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_backslash,		view,		{0} },
 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_a,		spawn,		SHCMD("st pulsemixer ; pkill -RTMIN+10 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_a,		spawn,		SHCMD("startanki") },
+	{ MODKEY|ShiftMask,		XK_a,		spawn,		SHCMD("anki") },
 	{ MODKEY,                       XK_s,           togglesticky,   {0} },
 	{ MODKEY|ShiftMask,		XK_s,		spawn,		SHCMD("temp=\"$(pwd)\"; cd $HOME/dox/notes; st $EDITOR $HOME/dox/notes/Main.md; cd \"$temp\"") },
 	{ MODKEY,			XK_d,		spawn,          {.v = dmenucmd } },
