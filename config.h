@@ -223,7 +223,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_F8,		spawn,		SHCMD("mailsync; pkill -RTMIN+13 dwmblocks") },
 	{ MODKEY,			XK_F9,		spawn,		SHCMD("dmenumount") },
 	{ MODKEY,			XK_F10,		spawn,		SHCMD("dmenuumount") },
-	{ MODKEY,			XK_F11,		spawn,		SHCMD("ducksearch") },
+	{ MODKEY,			XK_F11,		spawn,		SHCMD("searx") },
 	{ MODKEY,			XK_F12,		spawn,		SHCMD("st -e sudo nmtui") },
 	/* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
 	{ MODKEY,			XK_space,	zoom,		{0} },
