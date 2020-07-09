@@ -4,7 +4,7 @@ index 582c9c9..f8bb823 100644
 +++ b/dwm.c
 @@ -707,11 +707,11 @@ drawbar(Monitor *m)
  	Client *c;
- 
+
  	/* draw status first so it can be overdrawn by tags later */
 -	if (m == selmon) { /* status is only drawn on selected monitor */
 -		drw_setscheme(drw, scheme[SchemeNorm]);
@@ -16,6 +16,15 @@ index 582c9c9..f8bb823 100644
 +	tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
 +	drw_text(drw, m->ww - tw - 2 * sp, 0, tw, bh, 0, stext, 0);
 +
- 
+
  	for (c = m->clients; c; c = c->next) {
  		occ |= c->tags;
+@@ -2107,7 +2107,7 @@ updatestatus(void)
+ {
+        if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
+                strcpy(stext, "dwm-"VERSION);
+-       drawbars();     /*update statusbar on all monitors*/
++       drawbar(selmon);
+ }
+
+ void
