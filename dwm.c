@@ -1664,6 +1664,10 @@ setup(void)
 	XSelectInput(dpy, root, wa.event_mask);
 	grabkeys();
 	focus(NULL);
+	Monitor *m;
+	for (m = mons; m; m = m->next) {
+		updatebarpos(m);
+	}
 }
 
 
