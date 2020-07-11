@@ -1642,7 +1642,10 @@ setup(void)
 	/* init bars */
 	updatebars();
 	updatestatus();
-	updatebarpos(selmon);
+	Monitor *m;
+	for (m = mons; m; m = m->next) {
+		updatebarpos(m);
+	}
 	/* supporting window for NetWMCheck */
 	wmcheckwin = XCreateSimpleWindow(dpy, root, 0, 0, 1, 1, 0, 0, 0);
 	XChangeProperty(dpy, wmcheckwin, netatom[NetWMCheck], XA_WINDOW, 32,
@@ -1664,10 +1667,6 @@ setup(void)
 	XSelectInput(dpy, root, wa.event_mask);
 	grabkeys();
 	focus(NULL);
-	Monitor *m;
-	for (m = mons; m; m = m->next) {
-		updatebarpos(m);
-	}
 }
 
 
