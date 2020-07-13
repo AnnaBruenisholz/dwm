@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 10;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -171,27 +171,27 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[8]} },
 	{ MODKEY,			XK_g,		shiftview,	{ .i = -1 } },
 	{ MODKEY|ShiftMask,		XK_g,		spawn,		SHCMD("hover center") },
-	{ MODKEY,			XK_h,		setmfact,	{.f = -0.05} },
-	{ MODKEY|ShiftMask,		XK_h,		focusmon,	{.i = -1 } },
-	{ MODKEY|ShiftMask|ControlMask, XK_h,		tagmon,		{.i = -1 } },
+	{ MODKEY,			XK_h,		focusmon,	{.i = -1 } },
+	{ MODKEY|ShiftMask,		XK_h,		setmfact,	{.f = -0.05} },
+	{ MODKEY|ControlMask, 		XK_h,		tagmon,		{.i = -1 } },
 	{ MODKEY,			XK_j,		focusstack,    	{.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_j,		movestack,     	{.i = +1 } },
 	{ MODKEY,			XK_k,		focusstack,    	{.i = -1 } },
 	{ MODKEY|ShiftMask,		XK_k,		movestack,     	{.i = -1 } },
-	{ MODKEY,			XK_l,		setmfact,      	{.f = +0.05} },
-	{ MODKEY|ShiftMask,		XK_l,		focusmon,	{.i = +1 } },
-	{ MODKEY|ShiftMask|ControlMask, XK_l,		tagmon,		{.i = +1 } },
+	{ MODKEY,			XK_l,		focusmon,	{.i = +1 } },
+	{ MODKEY|ShiftMask,		XK_l,		setmfact,      	{.f = +0.05} },
+	{ MODKEY|ControlMask, 		XK_l,		tagmon,		{.i = +1 } },
 	{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } },
 	/* { MODKEY|ShiftMask,		XK_semicolon,	shiftview,	SHCMD("") }, */
 	/* { MODKEY,			XK_apostrophe,	spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_apostrophe,	spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_Return,	spawn,		{.v = termcmd } },
 	{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.ui = 0 } },
-	{ MODKEY,			XK_z,		togglescratch,	{.ui = 1 } },
+	/*{ MODKEY,			XK_z,		togglescratch,	{.ui = 1 } },*/
 	/*{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -1 } },*/
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & xset dpms force off; mpc pause ; pauseallmpv") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
-	{ MODKEY,			XK_c,		spawn,		SHCMD("st -e echo \"print Calculator\\n\" | bc -liq") },
+	{ MODKEY,			XK_c,		togglescratch,	{.ui = 1 } },
 	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title=mpvfloat /dev/video0") },
 	{ MODKEY,			XK_v,		spawn,		SHCMD("st -e $EDITOR -c \"VimwikiIndex\"") },
 	{ MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("hover left") },
