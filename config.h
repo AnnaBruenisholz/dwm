@@ -154,7 +154,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_o,		incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_o,		incnmaster,     {.i = -1 } },
 	{ MODKEY,			XK_p,			spawn,		SHCMD("mpc toggle; pkill -RTMIN+11 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_p,			spawn,		SHCMD("mpc pause ; pauseallmpv; pkill -RTMIN+11 dwmblocks") },
+	{ MODKEY|ShiftMask,		XK_p,			spawn,		SHCMD("passmenu2") },
 	/* { MODKEY,			XK_bracketleft,		spawn,		SHCMD("mpc seek -10; pkill -RTMIN+11 dwmblocks") }, */
 	/* { MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -120; pkill -RTMIN+11 dwmblocks") }, */
 	/* { MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10; pkill -RTMIN+11 dwmblocks") }, */
@@ -187,7 +187,7 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_apostrophe,	spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_Return,	spawn,		{.v = termcmd } },
 	{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.ui = 0 } },
-	/*{ MODKEY,			XK_z,		togglescratch,	{.ui = 1 } },*/
+	{ MODKEY,			XK_z,		spawn,		SHCMD("st -e tremc") },
 	/*{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -1 } },*/
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & xset dpms force off; mpc pause ; pauseallmpv") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
@@ -197,7 +197,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("hover left") },
 	{ MODKEY,			XK_b,		togglebar,	{0} },
 	{ MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("bt") },
-	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e newsboat") },
+	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+13 dwmblocks") },
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("hover right") },
 	{ MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp") },
 	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("mpc toggle; notify-send \"DUNST_COMMAND_TOGGLE\"; pkill -RTMIN+10 dwmblocks") },
