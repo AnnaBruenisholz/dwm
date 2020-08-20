@@ -68,7 +68,7 @@ static const Rule rules[] = {
 	/* class      instance    		title      	 tags mask    	 isfloating   		monitor */
 	{ "Gimp",	  NULL,			NULL,		0,			1,			 -1 },
 	{ "Firefox",  	  NULL,			NULL,		1 << 8,			0,			 -1 },
-	{ NULL,		  "scratchpadterm",		NULL,		SPTAG(0),		1,			 -1 },
+	{ NULL,		  "scratchpadterm",	NULL,		SPTAG(0),		1,			 -1 },
 	{ NULL,		  "scratchcalc",       NULL,		SPTAG(1),		1,			 -1 },
 };
 
@@ -189,7 +189,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.ui = 0 } },
 	{ MODKEY,			XK_z,		spawn,		SHCMD("st -e tremc") },
 	/*{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -1 } },*/
-	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & xset dpms force off; mpc pause ; pauseallmpv") },
+	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & ( sleep 4; xset dpms force off; mpc pause ; pauseallmpv)") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
 	{ MODKEY,			XK_c,		togglescratch,	{.ui = 1 } },
 	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title=mpvfloat /dev/video0") },
@@ -277,7 +277,7 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button1,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
