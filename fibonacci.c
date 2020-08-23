@@ -6,12 +6,21 @@ fibonacci(Monitor *mon, int s) {
 	for(n = 0, c = nexttiled(mon->clients); c; c = nexttiled(c->next), n++);
 	if(n == 0)
 		return;
-	
+
 	nx = mon->wx;
 	ny = 0;
 	nw = mon->ww;
 	nh = mon->wh;
-	
+
+	if(n==1){
+		c = nexttiled(mon->clients);
+		int altw = WIDTH(c)*mon->wh/HEIGHT(c);
+		if ( c->mina > 0 && altw < c->mon->mw ){
+			nx = c->mon->mx + (c->mon->mw - altw ) / 2;
+			resize(c, nx, ny, nw , nh , False);
+		}
+	}
+
 	for(i = 0, c = nexttiled(mon->clients); c; c = nexttiled(c->next)) {
 		if((i % 2 && nh / 2 > 2 * c->bw)
 		   || (!(i % 2) && nw / 2 > 2 * c->bw)) {
@@ -44,7 +53,13 @@ fibonacci(Monitor *mon, int s) {
 			if(i == 0)
 			{
 				if(n != 1)
-					nw = mon->ww * mon->mfact;
+
+				nw = mon->ww *mon->mfact;
+				unsigned int altw = WIDTH(c) * mon->wh / HEIGHT(c);
+				nw = c->mina > 0 && altw < nw ? altw : nw;
+				//if ( c->mina > 0 && altw < nw){
+				//	nw = altw;
+				//}
 				ny = mon->wy;
 			}
 			else if(i == 1)
