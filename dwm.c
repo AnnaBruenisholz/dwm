@@ -673,15 +673,28 @@ createmon(void)
 
 void
 deck(Monitor *m) {
-	unsigned int i, n, h, mw, my;
+	unsigned int i, n, h, mw, my, altw, nx;
 	Client *c;
 
 	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if(n == 0)
 		return;
-
+	if (n == 1){
+		c = nexttiled(m->clients);
+		altw = WIDTH(c) * m->wh / HEIGHT(c); /*use max window height but preserve aspect ratio */
+		if ( c->mina > 0 && altw < c->mon->mw ){
+			nx = m->mx + (m->mw - altw ) / 2;
+			resize(c, nx , c->y, altw , c->h, 0);
+			return;
+		}
+	}
 	if(n > m->nmaster) {
 		mw = m->nmaster ? m->ww * m->mfact : 0;
+		if ( m->nmaster == 1){
+			c = nexttiled(m->clients);
+			altw = WIDTH(c) * m->wh / HEIGHT(c); /*use max window height but preserve aspect ratio */
+			mw = c->mina > 0 && altw < mw ? altw : mw;
+		}
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n - m->nmaster);
 	}
 	else
@@ -1750,15 +1763,30 @@ tagmon(const Arg *arg)
 void
 tile(Monitor *m)
 {
-	unsigned int i, n, h, mw, my, ty;
+	unsigned int i, n, h, mw, my, ty, altw, nx;
 	Client *c;
 
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if (n == 0)
 		return;
+	if (n == 1){
+		c = nexttiled(m->clients);
+		altw = WIDTH(c) * m->wh / HEIGHT(c); /*use max window height but preserve aspect ratio */
+		if ( c->mina > 0 && altw < c->mon->mw ){
+			nx = m->mx + (m->mw - altw ) / 2;
+			resize(c, nx , c->y, altw , c->h, 0);
+			return;
+		}
+	}
 
-	if (n > m->nmaster)
+	if (n > m->nmaster){
 		mw = m->nmaster ? m->ww * m->mfact : 0;
+		if ( m->nmaster == 1){
+			c = nexttiled(m->clients);
+			altw = WIDTH(c) * m->wh / HEIGHT(c); /*use max window height but preserve aspect ratio */
+			mw = c->mina > 0 && altw < mw ? altw : mw;
+		}
+	}
 	else
 		mw = m->ww;
 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
