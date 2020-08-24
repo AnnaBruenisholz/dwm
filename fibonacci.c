@@ -12,14 +12,7 @@ fibonacci(Monitor *mon, int s) {
 	nw = mon->ww;
 	nh = mon->wh;
 
-	if(n==1){
-		c = nexttiled(mon->clients);
-		int altw = WIDTH(c)*mon->wh/HEIGHT(c);
-		if ( c->mina > 0 && altw < c->mon->mw ){
-			nx = c->mon->mx + (c->mon->mw - altw ) / 2;
-			resize(c, nx, ny, nw , nh , False);
-		}
-	}
+
 
 	for(i = 0, c = nexttiled(mon->clients); c; c = nexttiled(c->next)) {
 		if((i % 2 && nh / 2 > 2 * c->bw)
@@ -52,15 +45,18 @@ fibonacci(Monitor *mon, int s) {
 			}
 			if(i == 0)
 			{
-				if(n != 1)
-
-				nw = mon->ww *mon->mfact;
-				unsigned int altw = WIDTH(c) * mon->wh / HEIGHT(c);
-				nw = c->mina > 0 && altw < nw ? altw : nw;
-				//if ( c->mina > 0 && altw < nw){
-				//	nw = altw;
-				//}
-				ny = mon->wy;
+				unsigned int altw = WIDTH(c) * mon->wh / HEIGHT(c); /*use max window height but preserve aspect ratio */
+				if( n==1 ){
+					//if window has min aspect ratio (aka not infinitely adjustable to screen), center that window
+					if ( c->mina > 0 && altw < c->mon->mw ){
+						nx = c->mon->mx + (c->mon->mw - altw ) / 2;
+					}
+				}
+				else{
+					nw = mon->ww *mon->mfact;
+					nw = c->mina > 0 && altw < nw ? altw : nw;
+					ny = mon->wy;
+				}
 			}
 			else if(i == 1)
 				nw = mon->ww - nw;
