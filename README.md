@@ -26,6 +26,7 @@ Patches
 - warp mouse to center of focussed window
 - scratchpads
 - zoom swap
+- don't create empty space if master windows are smaller than alloted space (personal) -> This is multiple patches, depending on the layout (fibonacci, tile & deck are seperately listed in patches folder)
 
 
 Requirements

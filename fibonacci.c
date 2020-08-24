@@ -46,7 +46,7 @@ fibonacci(Monitor *mon, int s) {
 			if(i == 0)
 			{
 				unsigned int altw = WIDTH(c) * mon->wh / HEIGHT(c); /*use max window height but preserve aspect ratio */
-				if( n==1 ){
+				if(n == 1){
 					//if window has min aspect ratio (aka not infinitely adjustable to screen), center that window
 					if ( c->mina > 0 && altw < c->mon->mw ){
 						nx = c->mon->mx + (c->mon->mw - altw ) / 2;
