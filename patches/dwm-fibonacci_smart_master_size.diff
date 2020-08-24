@@ -1,16 +1,38 @@
-This patch automatically centers if only one window is open in fibonacci (and that window can't make use of the whole screen)
-If there are multiple windows and the master window does not take up all it's alloted space, everything will be adjusted so no empty space is created.
---- fibonacci.c	2020-08-24 09:22:31.596464187 +0200
-+++ fibonacci.c	2020-08-24 09:22:16.013131432 +0200
-@@ -43,9 +45,18 @@
+diff --git a/fibonacci.c b/fibonacci.c
+index c50667e..99c370a 100644
+--- a/fibonacci.c
++++ b/fibonacci.c
+@@ -12,14 +12,7 @@ fibonacci(Monitor *mon, int s) {
+ 	nw = mon->ww;
+ 	nh = mon->wh;
+ 
+-	if(n==1){
+-		c = nexttiled(mon->clients);
+-		int altw = WIDTH(c)*mon->wh/HEIGHT(c);
+-		if ( c->mina > 0 && altw < c->mon->mw ){
+-			nx = c->mon->mx + (c->mon->mw - altw ) / 2;
+-			resize(c, nx, ny, nw , nh , False);
+-		}
+-	}
++
+ 
+ 	for(i = 0, c = nexttiled(mon->clients); c; c = nexttiled(c->next)) {
+ 		if((i % 2 && nh / 2 > 2 * c->bw)
+@@ -52,15 +45,18 @@ fibonacci(Monitor *mon, int s) {
  			}
  			if(i == 0)
  			{
 -				if(n != 1)
--					nw = mon->ww * mon->mfact;
+-
+-				nw = mon->ww *mon->mfact;
+-				unsigned int altw = WIDTH(c) * mon->wh / HEIGHT(c);
+-				nw = c->mina > 0 && altw < nw ? altw : nw;
+-				//if ( c->mina > 0 && altw < nw){
+-				//	nw = altw;
+-				//}
 -				ny = mon->wy;
 +				unsigned int altw = WIDTH(c) * mon->wh / HEIGHT(c); /*use max window height but preserve aspect ratio */
-+				if(n == 1){
++				if( n==1 ){
 +					//if window has min aspect ratio (aka not infinitely adjustable to screen), center that window
 +					if ( c->mina > 0 && altw < c->mon->mw ){
 +						nx = c->mon->mx + (c->mon->mw - altw ) / 2;
