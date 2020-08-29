@@ -2,6 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderfloatpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 10;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -196,11 +197,13 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("hover center") },
 	{ MODKEY,			XK_v,		spawn,		SHCMD("st -e $EDITOR -c \"VimwikiIndex\"") },
 	{ MODKEY|ShiftMask,		XK_v,		setfloating,	{0} },
+	{ MODKEY|ShiftMask,		XK_v,		setsticky,	{0} },
 	{ MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("hover left") },
 	{ MODKEY,			XK_b,		togglebar,	{0} },
 	{ MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("bt") },
 	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+13 dwmblocks") },
 	{ MODKEY|ShiftMask,		XK_n,		setfloating,	{0}	 },
+	{ MODKEY|ShiftMask,		XK_n,		setsticky,	{0}	 },
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("hover right") },
 	{ MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp") },
 	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("mpc toggle; notify-send \"DUNST_COMMAND_TOGGLE\"; pkill -RTMIN+10 dwmblocks") },
