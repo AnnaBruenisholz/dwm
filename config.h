@@ -83,15 +83,14 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
  	{ "[@]",      spiral },	   /* first entry is default */
  	{ "[\\]",     dwindle },   /* Default: Master on left, slaves on right */
-	{ "[]=",      tile },      /* Default: Master on left, slaves on right */
 	{ "H[]",	deck },			/* Master on left, slaves in monocle-like mode on right */
+	{ ">M>",	centeredfloatingmaster },	/* Same but master floats */
+	{ "[]=",      tile },      /* Default: Master on left, slaves on right */
 	{ "TTT",      bstack },	   /* Master on top, slaves on bottom */
 	{ "|M|",	centeredmaster },		/* Master in middle, slaves on sides */
-	{ ">M>",	centeredfloatingmaster },	/* Same but master floats */
 	{ "[M]",      monocle },
 	{ "===",      bstackhoriz },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ NULL,       NULL },
 };
 
 /* key definitions */
@@ -164,7 +163,7 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_a,		spawn,		SHCMD("st pulsemixer ; pkill -RTMIN+10 dwmblocks") },
 	{ MODKEY|ShiftMask,		XK_a,		spawn,		SHCMD("anki") },
-	{ MODKEY,                       XK_s,           togglesticky,   {0} },
+	{ MODKEY,                       XK_s,           togglesticky,   {.i=False} },
 	{ MODKEY|ShiftMask,		XK_s,		spawn,		SHCMD("temp=\"$(pwd)\"; cd $HOME/dox/notes; st $EDITOR $HOME/dox/notes/Main.md; cd \"$temp\"") },
 	{ MODKEY,			XK_d,		spawn,          {.v = dmenucmd } },
 	//{ MODKEY|ShiftMask,		XK_d,		togglegaps,	{0} },
@@ -193,17 +192,17 @@ static Key keys[] = {
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & ( sleep 4; xset dpms force off; mpc pause ; pauseallmpv)") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
 	{ MODKEY,			XK_c,		togglescratch,	{.ui = 1 } },
-	{ MODKEY|ShiftMask,		XK_c,		setfloating,	{0} },
+	{ MODKEY|ShiftMask,		XK_c,		setfloating,	{.i = True} },
 	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("hover center") },
 	{ MODKEY,			XK_v,		spawn,		SHCMD("st -e $EDITOR -c \"VimwikiIndex\"") },
-	{ MODKEY|ShiftMask,		XK_v,		setfloating,	{0} },
-	{ MODKEY|ShiftMask,		XK_v,		setsticky,	{0} },
+	{ MODKEY|ShiftMask,		XK_v,		setfloating,	{ .i=True} },
+	{ MODKEY|ShiftMask,		XK_v,		setsticky,	{.i=True} },
 	{ MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("hover left") },
 	{ MODKEY,			XK_b,		togglebar,	{0} },
 	{ MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("bt") },
 	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+13 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_n,		setfloating,	{0}	 },
-	{ MODKEY|ShiftMask,		XK_n,		setsticky,	{0}	 },
+	{ MODKEY|ShiftMask,		XK_n,		setfloating,	{ .i=True}	 },
+	{ MODKEY|ShiftMask,		XK_n,		setsticky,	{.i=True}	 },
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("hover right") },
 	{ MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp") },
 	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("mpc toggle; notify-send \"DUNST_COMMAND_TOGGLE\"; pkill -RTMIN+10 dwmblocks") },
@@ -234,6 +233,7 @@ static Key keys[] = {
 	/* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
 	{ MODKEY,			XK_space,	zoom,		{0} },
 	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
+	{ MODKEY|ShiftMask,		XK_space,	setsticky,	{.i = False} },
 	{ 0,				XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
 	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
 	{ MODKEY,			XK_Print,	spawn,		SHCMD("dmenurecord") },

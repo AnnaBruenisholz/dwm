@@ -1840,7 +1840,7 @@ setfloating(const Arg *arg)
 		return;
 	if (selmon->sel->isfullscreen) /* no support for fullscreen windows */
 		return;
-	selmon->sel->isfloating = True;
+	selmon->sel->isfloating = arg->i;
 	selmon->sel->bw = borderfloatpx;
 	//needed to redraw new thinner border
 	resizeclient(selmon->sel, selmon->sel->x, selmon->sel->y, selmon->sel->w, selmon->sel->h);
@@ -1868,7 +1868,7 @@ setsticky(const Arg *arg)
 {
 	if (!selmon->sel)
 		return;
-	selmon->sel->issticky = True;
+	selmon->sel->issticky = arg->i;
 	arrange(selmon);
 }
 void
@@ -2561,7 +2561,7 @@ fibonacci(Monitor *mon, int s) {
 			}
 			if((i % 4) == 0) {
 				if(s)
-					ny += nh;
+					ny += i == 0 ? mon->wy : nh; //seems extremely dirty, look at again to fix wrong offset for dwindle and n==1
 				else
 					ny -= nh;
 			}
