@@ -37,7 +37,7 @@ static char selfgcolor[] = nord6;
 static char selbgcolor[] = nord10;
 static char selbordercolor[] = nord4;
 
-static const char col_urgborder[]   = "#ff0000";
+static const char col_urgborder[]   = nord11;
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -52,6 +52,7 @@ typedef struct {
 } Sp;
 const char *spcmd1[] = {"st", "-n", "scratchpadterm", "-t", "Scratchpad", "-g", "120x34", NULL };
 const char *spcmd2[] = {"st", "-n", "scratchcalc", "-t", "Calculator", "-g", "120x34", "-e", "dropdowncalc", NULL };
+
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"scratchpad",    spcmd1},
@@ -140,7 +141,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("brave") },
 	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+12 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("tutorialvids") },
+	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e lf") },
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} },
@@ -170,7 +171,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_f,		togglefullscr,	{0} },
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[8]} },
 	{ MODKEY,			XK_g,		shiftview,	{ .i = -1 } },
-	{ MODKEY|ShiftMask,		XK_g,		spawn,		SHCMD("hover center") },
+	//{ MODKEY|ShiftMask,		XK_g,		spawn,		SHCMD("hover center") },
 	{ MODKEY,			XK_h,		focusmon,	{.i = -1 } },
 	{ MODKEY|ShiftMask,		XK_h,		setmfact,	{.f = -0.05} },
 	{ MODKEY|ControlMask, 		XK_h,		tagmon,		{.i = -1 } },
@@ -192,12 +193,15 @@ static Key keys[] = {
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & ( sleep 4; xset dpms force off; mpc pause ; pauseallmpv)") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
 	{ MODKEY,			XK_c,		togglescratch,	{.ui = 1 } },
-	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title=mpvfloat /dev/video0") },
+	{ MODKEY|ShiftMask,		XK_c,		setfloating,	{0} },
+	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("hover center") },
 	{ MODKEY,			XK_v,		spawn,		SHCMD("st -e $EDITOR -c \"VimwikiIndex\"") },
+	{ MODKEY|ShiftMask,		XK_v,		setfloating,	{0} },
 	{ MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("hover left") },
 	{ MODKEY,			XK_b,		togglebar,	{0} },
 	{ MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("bt") },
 	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+13 dwmblocks") },
+	{ MODKEY|ShiftMask,		XK_n,		setfloating,	{0}	 },
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("hover right") },
 	{ MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp") },
 	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("mpc toggle; notify-send \"DUNST_COMMAND_TOGGLE\"; pkill -RTMIN+10 dwmblocks") },
@@ -227,7 +231,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_F12,		spawn,		SHCMD("st -e sudo nmtui") },
 	/* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
 	{ MODKEY,			XK_space,	zoom,		{0} },
-	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
+	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{1} },
 	{ 0,				XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
 	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
 	{ MODKEY,			XK_Print,	spawn,		SHCMD("dmenurecord") },
