@@ -78,7 +78,6 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
-#include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
  	{ "[@]",      spiral },	   /* first entry is default */
@@ -231,7 +230,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_F12,		spawn,		SHCMD("st -e sudo nmtui") },
 	/* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
 	{ MODKEY,			XK_space,	zoom,		{0} },
-	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{1} },
+	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
 	{ 0,				XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
 	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
 	{ MODKEY,			XK_Print,	spawn,		SHCMD("dmenurecord") },

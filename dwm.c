@@ -167,9 +167,11 @@ static void detachstack(Client *c);
 static Monitor *dirtomon(int dir);
 static void drawbar(Monitor *m);
 static void drawbars(void);
+static void dwindle(Monitor *mon);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static Client *findbefore(Client *c);
+static void fibonacci(Monitor *mon, int s);
 static void focus(Client *c);
 static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
@@ -213,6 +215,7 @@ static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void sigchld(int unused);
 static void spawn(const Arg *arg);
+static void spiral(Monitor *mon);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
@@ -2489,24 +2492,15 @@ centeredfloatingmaster(Monitor *m)
 		return;
 
 	/* initialize nmaster area */
-	if (n > m->nmaster) {
-		/* go mfact box in the center if more than nmaster clients */
-		if (m->ww > m->wh) {
-			mw = m->nmaster ? m->ww * m->mfact : 0;
-			mh = m->nmaster ? m->wh * 0.9 : 0;
-		} else {
-			mh = m->nmaster ? m->wh * m->mfact : 0;
-			mw = m->nmaster ? m->ww * 0.9 : 0;
-		}
-		mx = mxo = (m->ww - mw) / 2;
-		my = myo = (m->wh - mh) / 2;
+	if (m->ww > m->wh) {
+		mw = m->nmaster ? m->ww * m->mfact : 0;
+		mh = m->nmaster ? m->wh : 0;
 	} else {
-		/* go fullscreen if all clients are in the master area */
-		mh = m->wh;
-		mw = m->ww;
-		mx = mxo = 0;
-		my = myo = 0;
+		mh = m->nmaster ? m->wh * m->mfact : 0;
+		mw = m->nmaster ? m->ww : 0;
 	}
+	mx = mxo = (m->ww - mw) / 2;
+	my = myo = (m->wh - mh) / 2;
 
 	for(i = tx = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 	if (i < m->nmaster) {
@@ -2523,4 +2517,81 @@ centeredfloatingmaster(Monitor *m)
 		       m->wh - (2*c->bw), 0);
 		tx += WIDTH(c);
 	}
+}
+void
+fibonacci(Monitor *mon, int s) {
+	unsigned int i, n, nx, ny, nw, nh;
+	Client *c;
+
+	for(n = 0, c = nexttiled(mon->clients); c; c = nexttiled(c->next), n++);
+	if(n == 0)
+		return;
+
+	nx = mon->wx;
+	ny = 0;
+	nw = mon->ww;
+	nh = mon->wh;
+
+
+
+	for(i = 0, c = nexttiled(mon->clients); c; c = nexttiled(c->next)) {
+		if((i % 2 && nh / 2 > 2 * c->bw)
+		   || (!(i % 2) && nw / 2 > 2 * c->bw)) {
+			if(i < n - 1) {
+				if(i % 2)
+					nh /= 2;
+				else
+					nw /= 2;
+				if((i % 4) == 2 && !s)
+					nx += nw;
+				else if((i % 4) == 3 && !s)
+					ny += nh;
+			}
+			if((i % 4) == 0) {
+				if(s)
+					ny += nh;
+				else
+					ny -= nh;
+			}
+			else if((i % 4) == 1)
+				nx += nw;
+			else if((i % 4) == 2)
+				ny += nh;
+			else if((i % 4) == 3) {
+				if(s)
+					nx += nw;
+				else
+					nx -= nw;
+			}
+			if(i == 0)
+			{
+				unsigned int altw = WIDTH(c) * mon->wh / HEIGHT(c); /*use max window height but preserve aspect ratio */
+				if(n == 1){
+					//if window has min aspect ratio (aka not infinitely adjustable to screen), center that window
+					if ( c->mina > 0 && altw < c->mon->mw ){
+						nx = c->mon->mx + (c->mon->mw - altw ) / 2;
+					}
+				}
+				else{
+					nw = mon->ww *mon->mfact;
+					nw = c->mina > 0 && altw < nw ? altw : nw;
+					ny = mon->wy;
+				}
+			}
+			else if(i == 1)
+				nw = mon->ww - nw;
+			i++;
+		}
+		resize(c, nx, ny, nw - 2 * c->bw, nh - 2 * c->bw, False);
+	}
+}
+
+void
+dwindle(Monitor *mon) {
+	fibonacci(mon, 1);
+}
+
+void
+spiral(Monitor *mon) {
+	fibonacci(mon, 0);
 }
