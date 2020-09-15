@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int borderfloatpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderfloatpx  = 1;        /* border pixel of windows which are floating */
 static const unsigned int snap      = 10;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -69,9 +69,12 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    		title      	 tags mask    	 isfloating   		monitor */
 	{ "Gimp",	  NULL,			NULL,		0,			1,			 -1 },
+	{ "vncviewer",	  NULL,			NULL,		0,			1,			 -1 },
+	{ "Vncviewer",	  NULL,			NULL,		0,			1,			 -1 },
 	{ "Firefox",  	  NULL,			NULL,		1 << 8,			0,			 -1 },
 	{ NULL,		  "scratchpadterm",	NULL,		SPTAG(0),		1,			 -1 },
 	{ NULL,		  "scratchcalc",       NULL,		SPTAG(1),		1,			 -1 },
+
 };
 
 /* layout(s) */
@@ -220,6 +223,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_Insert,	spawn,		SHCMD("notify-send \"📋 Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
 	{ MODKEY,			XK_F1,		spawn,		SHCMD("dmenuunicode") },
 	{ MODKEY,			XK_F2,		quit,		{0} },
+	{ MODKEY|ShiftMask,		XK_F2,		spawn,		SHCMD("killdwm") },
 	{ MODKEY,			XK_F3,		spawn,		SHCMD("displayselect") },
 	{ MODKEY,			XK_F4,		spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
 	{ MODKEY,			XK_F5,		spawn,		SHCMD("bt") },
@@ -241,16 +245,16 @@ static Key keys[] = {
 	{ MODKEY,			XK_Delete,	spawn,		SHCMD("dmenurecord kill") },
 	{ MODKEY,			XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") },
 
-	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("lmc mute") },
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("lmc up 5") },
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("lmc down 5") },
-	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
-	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next") },
-	{ 0, XF86XK_AudioPause,		spawn,		SHCMD("mpc pause") },
-	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("mpc play") },
-	{ 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop") },
-	{ 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10") },
-	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10") },
+	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("lmc mute; pkill -RTMIN+10 dwmblocks") },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("lmc up 5; pkill -RTMIN+10 dwmblocks") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("lmc down 5; pkill -RTMIN+10 dwmblocks") },
+	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev; pkill -RTMIN+11 dwmblocks") },
+	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next; pkill -RTMIN+11 dwmblocks") },
+	{ 0, XF86XK_AudioPause,		spawn,		SHCMD("mpc pause; pkill -RTMIN+11 dwmblocks") },
+	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("mpc toggle; pkill -RTMIN+11 dwmblocks") },
+	{ 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop; pkill -RTMIN+11 dwmblocks") },
+	{ 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10; pkill -RTMIN+11 dwmblocks") },
+	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10; pkill -RTMIN+11 dwmblocks") },
 	{ 0, XF86XK_AudioMedia,		spawn,		SHCMD("st -e ncmpcpp") },
 	{ 0, XF86XK_PowerOff,		spawn,		SHCMD("[ \"$(printf \"No\\nYes\" | dmenu -i -nb darkred -sb red -sf white -nf gray -p \"Shutdown computer?\")\" = Yes ] && sudo -A shutdown -h now") },
 	{ 0, XF86XK_Calculator,		spawn,		SHCMD("st -e bc -l") },
@@ -282,7 +286,7 @@ static Button buttons[] = {
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
+	{ ClkClientWin,         MODKEY,         Button2,        setfloating,	{.i=True} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
