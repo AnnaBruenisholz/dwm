@@ -191,7 +191,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_Return,	spawn,		{.v = termcmd } },
 	{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.ui = 0 } },
 	{ MODKEY,			XK_z,		spawn,		SHCMD("st -e tremc") },
-	/*{ MODKEY|ShiftMask,		XK_z,		incrgaps,	{.i = -1 } },*/
+	{ ControlMask|ShiftMask,	XK_z,		spawn,		SHCMD("xdotool click 2")},
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & ( sleep 4; xset dpms force off; mpc pause ; pauseallmpv)") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
 	{ MODKEY,			XK_c,		togglescratch,	{.ui = 1 } },
