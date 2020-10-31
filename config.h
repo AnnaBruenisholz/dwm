@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int borderfloatpx  = 1;        /* border pixel of windows which are floating */
+static const unsigned int borderfloatpx  = 2;        /* border pixel of windows which are floating; seems not correctly implemented yet! window freezes if toggled to floating if different to borderpx*/
 static const unsigned int snap      = 10;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -208,7 +208,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_n,		setsticky,	{.i=True}	 },
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("hover right") },
 	{ MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp") },
-	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("mpc toggle; notify-send \"DUNST_COMMAND_TOGGLE\"; pkill -RTMIN+10 dwmblocks") },
+	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("dunstctl set-paused toggle; pkill -RTMIN+5 dwmblocks") },
 	{ MODKEY,			XK_comma,	spawn,		SHCMD("mpc prev; pkill -RTMIN+11 dwmblocks") },
 	{ MODKEY|ShiftMask,		XK_comma,	spawn,		SHCMD("mpc seek 0%; pkill -RTMIN+11 dwmblocks") },
 	{ MODKEY,			XK_period,	spawn,		SHCMD("mpc next; pkill -RTMIN+11 dwmblocks") },
