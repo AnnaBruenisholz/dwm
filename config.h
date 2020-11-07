@@ -141,7 +141,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("brave") },
+	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("chromium") }, /*using ungoogled-chromium as backup browser*/
 	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+12 dwmblocks") },
 	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
@@ -201,8 +201,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_v,		setfloating,	{ .i=True} },
 	{ MODKEY|ShiftMask,		XK_v,		setsticky,	{.i=True} },
 	{ MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("hover left") },
-	{ MODKEY,			XK_b,		togglebar,	{0} },
-	{ MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("bt") },
+	{ MODKEY,			XK_b,		spawn,		SHCMD("bt") },
+	{ MODKEY|ShiftMask,		XK_b,		togglebar,	{0} },
 	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+13 dwmblocks") },
 	{ MODKEY|ShiftMask,		XK_n,		setfloating,	{ .i=True}	 },
 	{ MODKEY|ShiftMask,		XK_n,		setsticky,	{.i=True}	 },
@@ -228,7 +228,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_F4,		spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
 	{ MODKEY,			XK_F5,		spawn,		SHCMD("bt") },
 	{ MODKEY,			XK_F6,		spawn,		SHCMD("passmenu2") },
-	{ MODKEY,			XK_F7,		spawn,		SHCMD("ethvpn") },
+	{ MODKEY,			XK_F7,		spawn,		SHCMD("dmenuvpn") },
 	{ MODKEY,			XK_F8,		spawn,		SHCMD("mailsync; pkill -RTMIN+13 dwmblocks") },
 	{ MODKEY,			XK_F9,		spawn,		SHCMD("dmenumount") },
 	{ MODKEY,			XK_F10,		spawn,		SHCMD("dmenuumount") },
