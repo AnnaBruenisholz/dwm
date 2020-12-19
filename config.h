@@ -142,7 +142,7 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("chromium") }, /*using ungoogled-chromium as backup browser*/
-	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+12 dwmblocks") },
+	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+13 dwmblocks") },
 	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e lf") },
@@ -195,8 +195,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & ( sleep 4; xset dpms force off; mpc pause ; pauseallmpv)") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
 	{ MODKEY,			XK_c,		togglescratch,	{.ui = 1 } },
-	{ MODKEY|ShiftMask,		XK_c,		setfloating,	{.i = True} },
-	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("hover center") },
+	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("st -e calcurse; pkill -RTMIN+8 dwmblocks")},
 	{ MODKEY,			XK_v,		spawn,		SHCMD("st -e $EDITOR -c \"VimwikiIndex\"") },
 	{ MODKEY|ShiftMask,		XK_v,		setfloating,	{ .i=True} },
 	{ MODKEY|ShiftMask,		XK_v,		setsticky,	{.i=True} },
