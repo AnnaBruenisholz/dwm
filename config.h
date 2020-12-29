@@ -156,12 +156,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_i,		setlayout,	{.v = &layouts[7]} },
 	{ MODKEY,			XK_o,		incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_o,		incnmaster,     {.i = -1 } },
-	{ MODKEY,			XK_p,			spawn,		SHCMD("mpc toggle; pkill -RTMIN+11 dwmblocks") },
+	{ MODKEY,			XK_p,			spawn,		SHCMD("mpc toggle") },
 	{ MODKEY|ShiftMask,		XK_p,			spawn,		SHCMD("passmenu2") },
-	/* { MODKEY,			XK_bracketleft,		spawn,		SHCMD("mpc seek -10; pkill -RTMIN+11 dwmblocks") }, */
-	/* { MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -120; pkill -RTMIN+11 dwmblocks") }, */
-	/* { MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10; pkill -RTMIN+11 dwmblocks") }, */
-	/* { MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +120; pkill -RTMIN+11 dwmblocks") }, */
+	/* { MODKEY,			XK_bracketleft,		spawn,		SHCMD("mpc seek -10") }, */
+	/* { MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("mpc seek -120") }, */
+	/* { MODKEY,			XK_bracketright,	spawn,		SHCMD("mpc seek +10") }, */
+	/* { MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("mpc seek +120") }, */
 	{ MODKEY,			XK_backslash,		view,		{0} },
 	/* { MODKEY|ShiftMask,		XK_backslash,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_a,		spawn,		SHCMD("st pulsemixer ; pkill -RTMIN+10 dwmblocks") },
@@ -208,9 +208,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("hover right") },
 	{ MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp") },
 	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("dunstctl set-paused toggle; pkill -RTMIN+5 dwmblocks") },
-	{ MODKEY,			XK_comma,	spawn,		SHCMD("mpc prev; pkill -RTMIN+11 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_comma,	spawn,		SHCMD("mpc seek 0%; pkill -RTMIN+11 dwmblocks") },
-	{ MODKEY,			XK_period,	spawn,		SHCMD("mpc next; pkill -RTMIN+11 dwmblocks") },
+	{ MODKEY,			XK_comma,	spawn,		SHCMD("mpc prev") },
+	{ MODKEY|ShiftMask,		XK_comma,	spawn,		SHCMD("mpc seek 0%") },
+	{ MODKEY,			XK_period,	spawn,		SHCMD("mpc next") },
 	/* { MODKEY|ShiftMask,		XK_period,	spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_Left,	focusmon,	{.i = -1 } },
 	{ MODKEY|ShiftMask,		XK_Left,	tagmon,		{.i = -1 } },
@@ -247,13 +247,13 @@ static Key keys[] = {
 	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("lmc mute; pkill -RTMIN+10 dwmblocks") },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("lmc up 5; pkill -RTMIN+10 dwmblocks") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("lmc down 5; pkill -RTMIN+10 dwmblocks") },
-	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev; pkill -RTMIN+11 dwmblocks") },
-	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next; pkill -RTMIN+11 dwmblocks") },
-	{ 0, XF86XK_AudioPause,		spawn,		SHCMD("mpc pause; pkill -RTMIN+11 dwmblocks") },
-	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("mpc toggle; pkill -RTMIN+11 dwmblocks") },
-	{ 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop; pkill -RTMIN+11 dwmblocks") },
-	{ 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10; pkill -RTMIN+11 dwmblocks") },
-	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10; pkill -RTMIN+11 dwmblocks") },
+	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
+	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next") },
+	{ 0, XF86XK_AudioPause,		spawn,		SHCMD("mpc pause") },
+	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("mpc toggle") },
+	{ 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop") },
+	{ 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10") },
+	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10") },
 	{ 0, XF86XK_AudioMedia,		spawn,		SHCMD("st -e ncmpcpp") },
 	{ 0, XF86XK_PowerOff,		spawn,		SHCMD("[ \"$(printf \"No\\nYes\" | dmenu -i -nb darkred -sb red -sf white -nf gray -p \"Shutdown computer?\")\" = Yes ] && sudo -A shutdown -h now") },
 	{ 0, XF86XK_Calculator,		spawn,		SHCMD("st -e bc -l") },
