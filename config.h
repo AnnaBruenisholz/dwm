@@ -191,7 +191,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_Return,	spawn,		{.v = termcmd } },
 	{ MODKEY|ShiftMask,		XK_Return,	togglescratch,	{.ui = 0 } },
 	{ MODKEY,			XK_z,		spawn,		SHCMD("st -e tremc") },
-	{ ControlMask|ShiftMask,	XK_z,		spawn,		SHCMD("xclip -selection 'primary' -o | xvkbd -xsendevent -file -")},
+	/*{ MODKEY|ShiftMask,			XK_z,		spawn,		SHCMD("st -e tremc") },*/
 	{ MODKEY,			XK_x,		spawn,		SHCMD("slock & ( sleep 4; xset dpms force off; mpc pause ; pauseallmpv)") },
 	{ MODKEY|ShiftMask,		XK_x,		spawn,		SHCMD("prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"") },
 	{ MODKEY,			XK_c,		togglescratch,	{.ui = 1 } },
@@ -199,6 +199,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_v,		spawn,		SHCMD("st -e $EDITOR -c \"VimwikiIndex\"") },
 	{ MODKEY|ShiftMask,		XK_v,		setfloating,	{ .i=True} },
 	{ MODKEY|ShiftMask,		XK_v,		setsticky,	{.i=True} },
+	{ ControlMask|ShiftMask,	XK_v,		spawn,		SHCMD("xclip -selection 'primary' -o | xvkbd -xsendevent -file -")},
 	{ MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("hover left") },
 	{ MODKEY,			XK_b,		spawn,		SHCMD("bt") },
 	{ MODKEY|ShiftMask,		XK_b,		togglebar,	{0} },
