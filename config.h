@@ -87,11 +87,11 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
  	{ "[@]",      spiral },	   /* first entry is default */
  	{ "[\\]",     dwindle },   /* Default: Master on left, slaves on right */
-	{ "H[]",	deck },			/* Master on left, slaves in monocle-like mode on right */
+	{ "1[\\]",	centeredfirstwindow},		/* Master in middle, dwindle if more than masters*/
 	{ ">M>",	centeredfloatingmaster },	/* Same but master floats */
+	{ "H[]",	deck },			/* Master on left, slaves in monocle-like mode on right */
 	{ "[]=",      tile },      /* Default: Master on left, slaves on right */
 	{ "TTT",      bstack },	   /* Master on top, slaves on bottom */
-	{ "|M|",	centeredmaster },		/* Master in middle, slaves on sides */
 	{ "[M]",      monocle },
 	{ "===",      bstackhoriz },
 	{ "><>",      NULL },    /* no layout function means floating behavior */

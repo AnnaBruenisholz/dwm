@@ -252,6 +252,7 @@ static void bstack(Monitor *m);
 static void bstackhoriz(Monitor *m);
 static void centeredmaster(Monitor *m);
 static void centeredfloatingmaster(Monitor *m);
+static void centeredfirstwindow(Monitor *m);
 
 /* variables */
 static Client *prevzoom = NULL;
@@ -2492,6 +2493,42 @@ centeredmaster(Monitor *m)
 	}
 }
 
+
+void
+centeredfirstwindow(Monitor *m)
+{
+	unsigned int i, n, w, mh, mw, mx, mxo, my, myo, tx;
+	Client *c;
+
+	/* count number of clients in the selected monitor */
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if (n == 0)
+		return;
+
+	/* initialize nmaster area */
+	if (m->ww > m->wh) {
+		mw = m->nmaster ? m->ww * m->mfact : 0;
+		mh = m->nmaster ? m->wh : 0;
+	} else {
+		mh = m->nmaster ? m->wh * m->mfact : 0;
+		mw = m->nmaster ? m->ww : 0;
+	}
+	mx = mxo = (m->ww - mw) / 2;
+	my = myo = (m->wh - mh) / 2;
+
+	if ( n > m->nmaster){
+		fibonacci(m, 1);
+		return;
+	}
+	for(i = tx = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	if (i < m->nmaster) {
+		/* nmaster clients are stacked horizontally, in the center
+		 * of the screen */
+		w = (mw + mxo - mx) / (MIN(n, m->nmaster) - i);
+		resize(c, m->wx + mx, m->wy + my, w - (2*c->bw),
+		       mh - (2*c->bw), 0);
+		mx += WIDTH(c);
+	} }
 void
 centeredfloatingmaster(Monitor *m)
 {
