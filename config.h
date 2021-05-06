@@ -68,12 +68,13 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    		title      	 tags mask    	 isfloating   		monitor */
-	{ "Gimp",	  NULL,			NULL,		0,			1,			 -1 },
-	{ "vncviewer",	  NULL,			NULL,		0,			1,			 -1 },
-	{ "Vncviewer",	  NULL,			NULL,		0,			1,			 -1 },
-	{ "Firefox",  	  NULL,			NULL,		1 << 8,			0,			 -1 },
-	{ NULL,		  "scratchpadterm",	NULL,		SPTAG(0),		1,			 -1 },
-	{ NULL,		  "scratchcalc",       NULL,		SPTAG(1),		1,			 -1 },
+	{ "Gimp",	  NULL,			NULL,		0,			1,		-1 },
+	{ "st",		  NULL, 		NULL,		0,			0,		-1 },
+	{ "vncviewer",	  NULL,			NULL,		0,			1,		-1 },
+	{ "Vncviewer",	  NULL,			NULL,		0,			1,		-1 },
+	{ "Firefox",  	  NULL,			NULL,		1 << 8,			0,		-1 },
+	{ NULL,		  "scratchpadterm",	NULL,		SPTAG(0),		1,		-1 },
+	{ NULL,		  "scratchcalc",       NULL,		SPTAG(1),		1,		-1 },
 
 };
 
