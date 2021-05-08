@@ -8,6 +8,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 20;       /* horizontal padding of bar */
+static const float firstwindowoffset = 0.1;	/* render first window 10% larger than mfact would for firstwindowcentered layout */
 static const char *fonts[]          = { "monospace:size=13",
 					"IPAGothic:size=13",
 					"symbola:size=13"};

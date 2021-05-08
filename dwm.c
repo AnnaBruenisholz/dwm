@@ -17,7 +17,6 @@
  * client.
  *
  * Keys and tagging rules are organized as arrays and defined in config.h.
- *
  * To understand everything else, start reading main().
  */
 #include <errno.h>
@@ -2507,10 +2506,10 @@ centeredfirstwindow(Monitor *m)
 
 	/* initialize nmaster area */
 	if (m->ww > m->wh) {
-		mw = m->nmaster ? m->ww * m->mfact : 0;
+		mw = m->nmaster ? m->ww * (m->mfact + firstwindowoffset) : 0;
 		mh = m->nmaster ? m->wh : 0;
 	} else {
-		mh = m->nmaster ? m->wh * m->mfact : 0;
+		mh = m->nmaster ? m->wh * (m->mfact + firstwindowoffset) : 0;
 		mw = m->nmaster ? m->ww : 0;
 	}
 	mx = mxo = (m->ww - mw) / 2;
