@@ -2499,6 +2499,9 @@ centeredfirstwindow(Monitor *m)
 	unsigned int i, n, w, mh, mw, mx, mxo, my, myo, tx;
 	Client *c;
 
+	/* print nmaster in layout */
+	snprintf(m->ltsymbol, sizeof m->ltsymbol, "%d[\\]", m->nmaster);
+
 	/* count number of clients in the selected monitor */
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if (n == 0)
