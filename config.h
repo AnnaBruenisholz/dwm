@@ -8,7 +8,6 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 20;       /* horizontal padding of bar */
-static const float firstwindowoffset = 0.1;	/* render first window 10% larger than mfact would for firstwindowcentered layout */
 static const char *fonts[]          = { "monospace:size=13",
 					"IPAGothic:size=13",
 					"symbola:size=13"};
@@ -80,7 +79,8 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
+static const float firstwindowoffset = 0.05;	/* render first window 5% larger than mfact would for firstwindowcentered layout */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
