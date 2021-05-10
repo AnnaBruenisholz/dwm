@@ -2509,10 +2509,10 @@ centeredfirstwindow(Monitor *m)
 
 	/* initialize nmaster area */
 	if (m->ww > m->wh) {
-		mw = m->nmaster ? m->ww * (m->mfact + firstwindowoffset) : 0;
+		mw = m->nmaster ? m->ww * MIN(1.0, (m->mfact + firstwindowoffset)) : 0;
 		mh = m->nmaster ? m->wh : 0;
 	} else {
-		mh = m->nmaster ? m->wh * (m->mfact + firstwindowoffset) : 0;
+		mh = m->nmaster ? m->wh * MIN(1.0, (m->mfact + firstwindowoffset)) : 0;
 		mw = m->nmaster ? m->ww : 0;
 	}
 	mx = mxo = (m->ww - mw) / 2;
