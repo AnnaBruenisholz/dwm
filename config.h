@@ -145,7 +145,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("chromium") }, /*using ungoogled-chromium as backup browser*/
 	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+13 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
+	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("st -e weechat") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e lf") },
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} },
