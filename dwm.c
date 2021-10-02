@@ -226,6 +226,7 @@ static void togglefullscr(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void togglesticky(const Arg *arg);
+static void togglewarp(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
 static void unmanage(Client *c, int destroyed);
 static void unmapnotify(XEvent *e);
@@ -289,6 +290,7 @@ static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
+
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -1865,6 +1867,13 @@ togglesticky(const Arg *arg)
 	arrange(selmon);
 }
 
+void togglewarp(const Arg *arg){
+	if (dowarp)
+		dowarp=0;
+	else
+		dowarp=1;
+}
+
 void
 setsticky(const Arg *arg)
 {
@@ -2230,6 +2239,8 @@ view(const Arg *arg)
 void
 warp(const Client *c)
 {
+	if (!dowarp)
+		return;
 	int x, y;
 
 	if (!c) {
@@ -2648,3 +2659,4 @@ void
 spiral(Monitor *mon) {
 	fibonacci(mon, 0);
 }
+

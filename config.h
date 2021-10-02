@@ -3,6 +3,7 @@
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int borderfloatpx  = 2;        /* border pixel of windows which are floating; seems not correctly implemented yet! window freezes if toggled to floating if different to borderpx*/
+static int dowarp = 1;				/* default behaviour of mouse. Can be chaned via calling togglewarp*/
 static const unsigned int snap      = 10;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -144,10 +145,11 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("chromium") }, /*using ungoogled-chromium as backup browser*/
+	{ MODKEY|ShiftMask|ControlMask,		XK_w,		togglewarp,	{0}	 },
 	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+13 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("st -e weechat") },
+	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
-	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e lf") },
+	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("element-desktop --profile alpenrunde") },
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} },
 	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} },
@@ -247,7 +249,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_Delete,	spawn,		SHCMD("dmenurecord kill") },
 	{ MODKEY,			XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") },
 
-	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("lmc mute; pkill -RTMIN+10 dwmblocks") },
+	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("lmc toggle; pkill -RTMIN+10 dwmblocks") },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("lmc up 5; pkill -RTMIN+10 dwmblocks") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("lmc down 5; pkill -RTMIN+10 dwmblocks") },
 	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
@@ -272,10 +274,10 @@ static Key keys[] = {
 	{ 0, XF86XK_TouchpadToggle,	spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
 	{ 0, XF86XK_TouchpadOff,	spawn,		SHCMD("synclient TouchpadOff=1") },
 	{ 0, XF86XK_TouchpadOn,		spawn,		SHCMD("synclient TouchpadOff=0") },
-	{ 0,	XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 5; pkill -RTMIN+2 dwmblocks") },
-	{ 0,	XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 5; pkill -RTMIN+2 dwmblocks") },
-	{ ShiftMask,	XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -set 1; pkill -RTMIN+2 dwmblocks") },
-	{ ShiftMask,	XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -set 100; pkill -RTMIN+2 dwmblocks") },
+	{ 0,	XF86XK_MonBrightnessUp,	spawn,		SHCMD("bright inc 5; pkill -RTMIN+2 dwmblocks") },
+	{ 0,	XF86XK_MonBrightnessDown,	spawn,		SHCMD("bright dec 5; pkill -RTMIN+2 dwmblocks") },
+	{ ShiftMask,	XF86XK_MonBrightnessDown,	spawn,		SHCMD("bright set 1; pkill -RTMIN+2 dwmblocks") },
+	{ ShiftMask,	XF86XK_MonBrightnessUp,	spawn,		SHCMD("bright set 100; pkill -RTMIN+2 dwmblocks") },
 
 };
 
@@ -295,3 +297,4 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+
