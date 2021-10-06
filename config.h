@@ -176,7 +176,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_d,		spawn,		SHCMD("de launchdmenu")},
 	{ MODKEY,			XK_f,		togglefullscr,	{0} },
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[8]} },
-	{ MODKEY,			XK_g,		shiftview,	{ .i = -1 } },
+	/*{ MODKEY,			XK_g,		shiftview,	{ .i = -1 } },*/
 	//{ MODKEY|ShiftMask,		XK_g,		spawn,		SHCMD("hover center") },
 	{ MODKEY,			XK_h,		focusmon,	{.i = -1 } },
 	{ MODKEY|ShiftMask,		XK_h,		setmfact,	{.f = -0.05} },
@@ -188,7 +188,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_l,		focusmon,	{.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_l,		setmfact,      	{.f = +0.05} },
 	{ MODKEY|ControlMask, 		XK_l,		tagmon,		{.i = +1 } },
-	{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } },
+	/*{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } }, */
 	/* { MODKEY|ShiftMask,		XK_semicolon,	shiftview,	SHCMD("") }, */
 	/* { MODKEY,			XK_apostrophe,	spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_apostrophe,	spawn,		SHCMD("") }, */
