@@ -1868,10 +1868,7 @@ togglesticky(const Arg *arg)
 }
 
 void togglewarp(const Arg *arg){
-	if (dowarp)
-		dowarp=0;
-	else
-		dowarp=1;
+	dowarp=!dowarp;
 }
 
 void
