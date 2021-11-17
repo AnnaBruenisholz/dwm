@@ -54,11 +54,13 @@ typedef struct {
 } Sp;
 const char *spcmd1[] = {"st", "-n", "scratchpadterm", "-t", "Scratchpad", "-g", "120x34", NULL };
 const char *spcmd2[] = {"st", "-n", "scratchcalc", "-t", "Calculator", "-g", "120x34", "-e", "dropdowncalc", NULL };
+const char *spcmd3[] = {"st", "-n", "matrix", "-e", "weechat", NULL };
 
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"scratchpad",    spcmd1},
 	{"dropdowncalc",      spcmd2},
+	{"matrix",	spcmd3},
 };
 
 /* tagging */
@@ -76,6 +78,7 @@ static const Rule rules[] = {
 	{ "Firefox",  	  NULL,			NULL,		1 << 8,			0,		-1 },
 	{ NULL,		  "scratchpadterm",	NULL,		SPTAG(0),		1,		-1 },
 	{ NULL,		  "scratchcalc",       NULL,		SPTAG(1),		1,		-1 },
+	{ NULL,		  "matrix",       NULL,		SPTAG(2),		0,		-1 },
 
 };
 
@@ -147,7 +150,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("chromium") }, /*using ungoogled-chromium as backup browser*/
 	{ MODKEY|ShiftMask|ControlMask,		XK_w,		togglewarp,	{0}	 },
 	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+13 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
+	{ MODKEY|ShiftMask,			XK_e,		togglescratch,	{.ui = 2 } },
+
+	//{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("element-desktop --profile alpenrunde") },
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} },
@@ -242,6 +247,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_space,	zoom,		{0} },
 	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
 	{ MODKEY|ShiftMask,		XK_space,	setsticky,	{.i = False} },
+//{ ControlMask,			XK_space,	spawn,		SHCMD("dunstctl close-all")},
 	{ 0,				XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
 	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
 	{ MODKEY,			XK_Print,	spawn,		SHCMD("dmenurecord") },
