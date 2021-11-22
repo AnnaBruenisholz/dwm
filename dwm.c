@@ -175,7 +175,6 @@ static void fibonacci(Monitor *mon, int s);
 static void focus(Client *c);
 static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
-static void focusclientmon(Monitor *msearch);
 static void focusstack(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
 static int getrootptr(int *x, int *y);
@@ -915,20 +914,6 @@ focusmon(const Arg *arg)
 	warp(selmon->sel);
 }
 
-void
-focusclientmon(Monitor *msearch)
-{
-	Monitor *m;
-
-	if (!mons->next)
-		return;
-	if ((m = msearch) == selmon)
-		return;
-	unfocus(selmon->sel, 0);
-	selmon = m;
-	focus(NULL);
-	warp(selmon->sel);
-}
 void
 focusstack(const Arg *arg)
 {
