@@ -24,7 +24,7 @@ Patches
 - status bar on all monitors (personal)
 - sticky
 - warp mouse to center of focussed window
-- scratchpads
+- scratchpads (updated to only have one scratchpad instead of per monitor)
 - zoom swap
 - don't create empty space if master windows are smaller than alloted space (personal) -> This is multiple patches, depending on the layout (fibonacci, tile & deck are seperately listed in patches folder)
 
