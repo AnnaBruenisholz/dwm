@@ -58,6 +58,7 @@
 #define SPTAG(i) 				((1 << LENGTH(tags)) << (i))
 #define SPTAGMASK   			(((1 << LENGTH(scratchpads))-1) << LENGTH(tags))
 #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
@@ -174,6 +175,7 @@ static void fibonacci(Monitor *mon, int s);
 static void focus(Client *c);
 static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
+static void focusclientmon(Monitor *msearch);
 static void focusstack(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
 static int getrootptr(int *x, int *y);
@@ -203,6 +205,7 @@ static void run(void);
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
+static void sendmontags(Client *c, Monitor *m, unsigned int tags);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfloating(const Arg *arg);
@@ -789,8 +792,7 @@ drawbar(Monitor *m)
 	for (i = 0; i < LENGTH(tags); i++) {
 		/* do not draw vacant tags */
 		if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
-		continue;
-
+			continue;
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
@@ -913,6 +915,20 @@ focusmon(const Arg *arg)
 	warp(selmon->sel);
 }
 
+void
+focusclientmon(Monitor *msearch)
+{
+	Monitor *m;
+
+	if (!mons->next)
+		return;
+	if ((m = msearch) == selmon)
+		return;
+	unfocus(selmon->sel, 0);
+	selmon = m;
+	focus(NULL);
+	warp(selmon->sel);
+}
 void
 focusstack(const Arg *arg)
 {
@@ -1496,13 +1512,29 @@ scan(void)
 void
 sendmon(Client *c, Monitor *m)
 {
+	sendmontags(c, m, m->tagset[m->seltags]);
+	//if (c->mon == m)
+	//	return;
+	//unfocus(c, 1);
+	//detach(c);
+	//detachstack(c);
+	//c->mon = m;
+	//c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
+	//attach(c);
+	//attachstack(c);
+	//focus(NULL);
+	//arrange(NULL);
+}
+
+void
+sendmontags(Client *c, Monitor *m, unsigned int tags){
 	if (c->mon == m)
 		return;
 	unfocus(c, 1);
 	detach(c);
 	detachstack(c);
 	c->mon = m;
-	c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
+	c->tags = tags;
 	attach(c);
 	attachstack(c);
 	focus(NULL);
@@ -1883,23 +1915,38 @@ void
 togglescratch(const Arg *arg)
 {
 	Client *c;
+	Monitor *m;
 	unsigned int found = 0;
 	unsigned int scratchtag = SPTAG(arg->ui);
 	Arg sparg = {.v = scratchpads[arg->ui].cmd};
 
-	for (c = selmon->clients; c && !(found = c->tags & scratchtag); c = c->next);
-	if (found) {
-		unsigned int newtagset = selmon->tagset[selmon->seltags] ^ scratchtag;
-		if (newtagset) {
-			selmon->tagset[selmon->seltags] = newtagset;
-			focus(NULL);
-			arrange(selmon);
+	for (m = mons; m && !found; m = m->next)
+		for (c = m->clients; c && !(found = c->tags & scratchtag); c = c->next);
+
+	if (found){
+		if (c->mon == selmon) {
+			unsigned int newtagset = selmon->tagset[selmon->seltags] ^ scratchtag;
+			if (newtagset) {
+				selmon->tagset[selmon->seltags] = newtagset;
+				focus(NULL);
+				arrange(selmon);
+			}
+			if (ISVISIBLE(c)) {
+				focus(c);
+				restack(selmon);
+			}
 		}
-		if (ISVISIBLE(c)) {
-			focus(c);
-			restack(selmon);
+		else{
+			unsigned int newtagset = c->mon->tagset[c->mon->seltags] ^ scratchtag;
+			if (newtagset)
+				c->mon->tagset[c->mon->seltags] = newtagset;
+			//add scratchtag to monitor where client is sent to
+			selmon->tagset[selmon->seltags] |= scratchtag;
+			sendmontags(c, selmon, scratchtag);
+
 		}
-	} else {
+	}
+	else {
 		selmon->tagset[selmon->seltags] |= scratchtag;
 		spawn(&sparg);
 	}
