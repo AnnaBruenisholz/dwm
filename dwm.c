@@ -1513,21 +1513,11 @@ void
 sendmon(Client *c, Monitor *m)
 {
 	sendmontags(c, m, m->tagset[m->seltags]);
-	//if (c->mon == m)
-	//	return;
-	//unfocus(c, 1);
-	//detach(c);
-	//detachstack(c);
-	//c->mon = m;
-	//c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
-	//attach(c);
-	//attachstack(c);
-	//focus(NULL);
-	//arrange(NULL);
 }
 
 void
-sendmontags(Client *c, Monitor *m, unsigned int tags){
+sendmontags(Client *c, Monitor *m, unsigned int tags)
+{
 	if (c->mon == m)
 		return;
 	unfocus(c, 1);
@@ -1911,6 +1901,7 @@ setsticky(const Arg *arg)
 	selmon->sel->issticky = arg->i;
 	arrange(selmon);
 }
+
 void
 togglescratch(const Arg *arg)
 {
@@ -1923,7 +1914,7 @@ togglescratch(const Arg *arg)
 	for (m = mons; m && !found; m = m->next)
 		for (c = m->clients; c && !(found = c->tags & scratchtag); c = c->next);
 
-	if (found){
+	if (found) {
 		if (c->mon == selmon) {
 			unsigned int newtagset = selmon->tagset[selmon->seltags] ^ scratchtag;
 			if (newtagset) {
@@ -1935,18 +1926,14 @@ togglescratch(const Arg *arg)
 				focus(c);
 				restack(selmon);
 			}
-		}
-		else{
+		} else {
 			unsigned int newtagset = c->mon->tagset[c->mon->seltags] ^ scratchtag;
 			if (newtagset)
 				c->mon->tagset[c->mon->seltags] = newtagset;
-			//add scratchtag to monitor where client is sent to
 			selmon->tagset[selmon->seltags] |= scratchtag;
 			sendmontags(c, selmon, scratchtag);
-
 		}
-	}
-	else {
+	} else {
 		selmon->tagset[selmon->seltags] |= scratchtag;
 		spawn(&sparg);
 	}
