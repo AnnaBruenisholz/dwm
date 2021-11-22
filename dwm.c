@@ -1920,18 +1920,10 @@ togglescratch(const Arg *arg)
 	unsigned int scratchtag = SPTAG(arg->ui);
 	Arg sparg = {.v = scratchpads[arg->ui].cmd};
 
-	for (m = mons; m && ! found; m = m->next){
-		fprintf(stderr,"searching monitor %d\n",  m->num);
-		for (c = m->clients; c && !(found = c->tags & scratchtag); c = c->next){
-			fprintf(stderr, "client: %s\n", c->name);
-		}
-	}
+	for (m = mons; m && !found; m = m->next)
+		for (c = m->clients; c && !(found = c->tags & scratchtag); c = c->next);
 
 	if (found){
-		fprintf(stderr, "found client %s\n", c->name);
-		fprintf(stderr, "tags of scratchpad: %d\n", c->tags);
-		fprintf(stderr, "scratchtag: %d\n", scratchtag);
-		fprintf(stderr, "num of monitor: %d\n", c->mon->num);
 		if (c->mon == selmon) {
 			unsigned int newtagset = selmon->tagset[selmon->seltags] ^ scratchtag;
 			if (newtagset) {
@@ -1945,36 +1937,16 @@ togglescratch(const Arg *arg)
 			}
 		}
 		else{
-			fprintf(stderr, "we should move to selmon\n");
-			//move client from cfound->mon to selmon but still in scratchtag
-			// remove scratchtag from tagset of cfound->mon ->
 			unsigned int newtagset = c->mon->tagset[c->mon->seltags] ^ scratchtag;
 			if (newtagset)
 				c->mon->tagset[c->mon->seltags] = newtagset;
 			//add scratchtag to monitor where client is sent to
 			selmon->tagset[selmon->seltags] |= scratchtag;
 			sendmontags(c, selmon, scratchtag);
-			fprintf(stderr, "tags of scratchpad: %d\n", c->tags);
-			fprintf(stderr, "num of monitor: %d\n", c->mon->num);
-			//if(cfound->next->mon->num){
-			//	fprintf(stderr, "monitor of next client: %d\n", cfound->next->mon->num);
-			//}
-			//else{
-			//	fprintf(stderr, "monitor of next client: NULL");
-			//}
-			//if(cfound->snext->mon->num){
-			//	//fprintf(stderr, "monitor of snext client: %d\n", cfound->snext->mon->num);}
-			//	int a = 1;
-			//}
-			//else
-			//{
-			//	fprintf(stderr, "monitor of snext client: NULL");
-			//}
 
 		}
 	}
 	else {
-		fprintf(stderr, "Did not find client\n");
 		selmon->tagset[selmon->seltags] |= scratchtag;
 		spawn(&sparg);
 	}
