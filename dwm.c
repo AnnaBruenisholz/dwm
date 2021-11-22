@@ -1773,7 +1773,12 @@ tagmon(const Arg *arg)
 {
 	if (!selmon->sel || !mons->next)
 		return;
-	sendmon(selmon->sel, dirtomon(arg->i));
+	if(selmon->sel->tags > 1 << LENGTH(tags) << LENGTH(scratchpads))
+		sendmon(selmon->sel, dirtomon(arg->i));
+	else {
+		dirtomon(arg->i)->tagset[dirtomon(arg->i)->seltags] |= selmon->sel->tags;
+		sendmontags(selmon->sel, dirtomon(arg->i), selmon->sel->tags);
+	}
 }
 
 void
