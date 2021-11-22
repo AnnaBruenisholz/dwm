@@ -54,7 +54,7 @@ typedef struct {
 } Sp;
 const char *spcmd1[] = {"st", "-n", "scratchpadterm", "-t", "Scratchpad", "-g", "120x34", NULL };
 const char *spcmd2[] = {"st", "-n", "scratchcalc", "-t", "Calculator", "-g", "120x34", "-e", "dropdowncalc", NULL };
-const char *spcmd3[] = {"st", "-n", "matrix", "-e", "weechat", NULL };
+const char *spcmd3[] = {"st", "-n", "matrix", "-A", "0.1", "-e", "weechat", NULL };
 
 static Sp scratchpads[] = {
 	/* name          cmd  */
@@ -148,9 +148,9 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("chromium") }, /*using ungoogled-chromium as backup browser*/
-	{ MODKEY|ShiftMask|ControlMask,		XK_w,		togglewarp,	{0}	 },
+	{ MODKEY|ShiftMask|ControlMask,	XK_w,		togglewarp,	{0}	 },
 	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+13 dwmblocks") },
-	{ MODKEY|ShiftMask,			XK_e,		togglescratch,	{.ui = 2 } },
+	{ MODKEY|ShiftMask,		XK_e,		togglescratch,	{.ui = 2 } },
 
 	//{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
