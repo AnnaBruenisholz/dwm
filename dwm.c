@@ -1773,11 +1773,11 @@ tagmon(const Arg *arg)
 {
 	if (!selmon->sel || !mons->next)
 		return;
-	if(selmon->sel->tags > 1 << LENGTH(tags) << LENGTH(scratchpads))
-		sendmon(selmon->sel, dirtomon(arg->i));
-	else {
+	if(selmon->sel->tags & SPTAGMASK){
 		dirtomon(arg->i)->tagset[dirtomon(arg->i)->seltags] |= selmon->sel->tags;
 		sendmontags(selmon->sel, dirtomon(arg->i), selmon->sel->tags);
+	} else {
+		sendmon(selmon->sel, dirtomon(arg->i));
 	}
 }
 
@@ -2526,7 +2526,6 @@ bstackhoriz(Monitor *m) {
 //	}
 //}
 
-
 void
 centeredfirstwindow(Monitor *m)
 {
@@ -2564,7 +2563,9 @@ centeredfirstwindow(Monitor *m)
 		resize(c, m->wx + mx, m->wy + my, w - (2*c->bw),
 		       mh - (2*c->bw), 0);
 		mx += WIDTH(c);
-	} }
+	}
+}
+
 void
 centeredfloatingmaster(Monitor *m)
 {
@@ -2603,6 +2604,7 @@ centeredfloatingmaster(Monitor *m)
 		tx += WIDTH(c);
 	}
 }
+
 void
 fibonacci(Monitor *mon, int s) {
 	unsigned int i, n, nx, ny, nw, nh;
