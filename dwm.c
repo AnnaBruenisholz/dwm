@@ -58,7 +58,6 @@
 #define SPTAG(i) 				((1 << LENGTH(tags)) << (i))
 #define SPTAGMASK   			(((1 << LENGTH(scratchpads))-1) << LENGTH(tags))
 #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
