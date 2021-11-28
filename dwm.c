@@ -1773,9 +1773,14 @@ tagmon(const Arg *arg)
 {
 	if (!selmon->sel || !mons->next)
 		return;
-	if(selmon->sel->tags & SPTAGMASK){
+	unsigned int sel_sp_tags = selmon->sel->tags & SPTAGMASK;
+	if (sel_sp_tags) {
+		//add all tags of scratchpad client to new mon
 		dirtomon(arg->i)->tagset[dirtomon(arg->i)->seltags] |= selmon->sel->tags;
+		//?
 		sendmontags(selmon->sel, dirtomon(arg->i), selmon->sel->tags);
+		//remove used scratchpad tag from old mon
+		selmon->tagset[selmon->seltags] -=selmon->tagset[selmon->seltags] & sel_sp_tags;
 	} else {
 		sendmon(selmon->sel, dirtomon(arg->i));
 	}
