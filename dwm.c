@@ -1496,7 +1496,8 @@ scan(void)
 void
 sendmon(Client *c, Monitor *m)
 {
-	sendmontags(c, m, m->tagset[m->seltags]);
+	unsigned int tags_without_sp=m->tagset[m->seltags] & TAGMASK;
+	sendmontags(c, m, tags_without_sp);
 }
 
 void
