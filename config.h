@@ -9,10 +9,10 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 20;       /* horizontal padding of bar */
-static const char *fonts[]          = { "monospace:size=13",
-					"IPAGothic:size=13",
-					"symbola:size=13"};
-static const char dmenufont[]       = "monospace:size=13";
+static const char *fonts[]          = { "monospace:size=16",
+					"IPAGothic:size=16",
+					"symbola:size=16"};
+static const char dmenufont[]       = "monospace:size=16";
 #define bblack "#000000"
 #define nord0 "#2E3440"
 #define nord1 "#3B4252"
@@ -29,7 +29,7 @@ static const char dmenufont[]       = "monospace:size=13";
 #define nord12 "#D08770"
 #define nord13 "#EBCB8B"
 #define nord14 "#A3BE8C"
-#define nord15 "#B48EAD"
+#define nord15 "#FF79C6"
 
 static char normfgcolor[] = nord4;
 static char normbgcolor[] = nord0;
@@ -37,7 +37,7 @@ static char normbordercolor[] = nord2;
 
 static char selfgcolor[] = nord6;
 static char selbgcolor[] = nord10;
-static char selbordercolor[] = nord4;
+static char selbordercolor[] = nord15;
 
 static const char col_urgborder[]   = nord11;
 
@@ -85,7 +85,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const float firstwindowoffset = 0.05;	/* render first window 5% larger than mfact would for firstwindowcentered layout */
-static const int nmaster     = 1;    /* number of clients in master area */
+static const int nmaster     = 0;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
@@ -147,14 +147,11 @@ static Key keys[] = {
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("chromium") }, /*using ungoogled-chromium as backup browser*/
-	{ MODKEY|ShiftMask|ControlMask,	XK_w,		togglewarp,	{0}	 },
-	{ MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt -e 'set sidebar_visible = no'; pkill -RTMIN+13 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_e,		togglescratch,	{.ui = 2 } },
-
-	//{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
+	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("brave") }, /*using ungoogled-chromium as backup browser*/
+	{ MODKEY,			XK_e,		spawn,		SHCMD("st neomutt; pkill -RTMIN+13 dwmblocks") },
+	{ MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("element-desktop") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
-	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("element-desktop --profile alpenrunde") },
+	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e lf") },
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} },
 	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} },
@@ -181,9 +178,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_d,		spawn,		SHCMD("de launchdmenu")},
 	{ MODKEY,			XK_f,		togglefullscr,	{0} },
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[8]} },
-	/*{ MODKEY,			XK_g,		shiftview,	{ .i = -1 } },*/
+	{ MODKEY,			XK_g,		shiftview,	{ .i = -1 } },
 	//{ MODKEY|ShiftMask,		XK_g,		spawn,		SHCMD("hover center") },
-	{ MODKEY,			XK_h,		focusmon,	{.i = -1 } },
+	{ MODKEY,			XK_h,		spawn,		SHCMD("xournalpp") },
 	{ MODKEY|ShiftMask,		XK_h,		setmfact,	{.f = -0.05} },
 	{ MODKEY|ControlMask, 		XK_h,		tagmon,		{.i = -1 } },
 	{ MODKEY,			XK_j,		focusstack,    	{.i = +1 } },
@@ -193,7 +190,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_l,		focusmon,	{.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_l,		setmfact,      	{.f = +0.05} },
 	{ MODKEY|ControlMask, 		XK_l,		tagmon,		{.i = +1 } },
-	/*{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } }, */
+	{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } },
 	/* { MODKEY|ShiftMask,		XK_semicolon,	shiftview,	SHCMD("") }, */
 	/* { MODKEY,			XK_apostrophe,	spawn,		SHCMD("") }, */
 	/* { MODKEY|ShiftMask,		XK_apostrophe,	spawn,		SHCMD("") }, */
@@ -234,7 +231,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_F2,		quit,		{0} },
 	{ MODKEY|ShiftMask,		XK_F2,		spawn,		SHCMD("killdwm") },
 	{ MODKEY,			XK_F3,		spawn,		SHCMD("displayselect") },
-	{ MODKEY,			XK_F4,		spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
+	{ MODKEY,			XK_F4,		spawn,		SHCMD("toggle_touchpad") },
 	{ MODKEY,			XK_F5,		spawn,		SHCMD("bt") },
 	{ MODKEY,			XK_F6,		spawn,		SHCMD("passmenu2") },
 	{ MODKEY,			XK_F7,		spawn,		SHCMD("dmenuvpn") },
@@ -247,7 +244,6 @@ static Key keys[] = {
 	{ MODKEY,			XK_space,	zoom,		{0} },
 	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
 	{ MODKEY|ShiftMask,		XK_space,	setsticky,	{.i = False} },
-//{ ControlMask,			XK_space,	spawn,		SHCMD("dunstctl close-all")},
 	{ 0,				XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
 	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
 	{ MODKEY,			XK_Print,	spawn,		SHCMD("dmenurecord") },
@@ -255,7 +251,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_Delete,	spawn,		SHCMD("dmenurecord kill") },
 	{ MODKEY,			XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") },
 
-	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("lmc toggle; pkill -RTMIN+10 dwmblocks") },
+	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("lmc mute; pkill -RTMIN+10 dwmblocks") },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("lmc up 5; pkill -RTMIN+10 dwmblocks") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("lmc down 5; pkill -RTMIN+10 dwmblocks") },
 	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
@@ -266,7 +262,7 @@ static Key keys[] = {
 	{ 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10") },
 	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10") },
 	{ 0, XF86XK_AudioMedia,		spawn,		SHCMD("st -e ncmpcpp") },
-	{ 0, XF86XK_PowerOff,		spawn,		SHCMD("[ \"$(printf \"No\\nYes\" | dmenu -i -nb darkred -sb red -sf white -nf gray -p \"Shutdown computer?\")\" = Yes ] && sudo -A shutdown -h now") },
+	{ 0, XF86XK_PowerOff,		spawn,		SHCMD("shutdownprompt") },
 	{ 0, XF86XK_Calculator,		spawn,		SHCMD("st -e bc -l") },
 	{ 0, XF86XK_Sleep,		spawn,		SHCMD("sudo -A zzz") },
 	{ 0, XF86XK_WWW,		spawn,		SHCMD("$BROWSER") },
@@ -280,8 +276,8 @@ static Key keys[] = {
 	{ 0, XF86XK_TouchpadToggle,	spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
 	{ 0, XF86XK_TouchpadOff,	spawn,		SHCMD("synclient TouchpadOff=1") },
 	{ 0, XF86XK_TouchpadOn,		spawn,		SHCMD("synclient TouchpadOff=0") },
-	{ 0,	XF86XK_MonBrightnessUp,	spawn,		SHCMD("bright inc 5; pkill -RTMIN+2 dwmblocks") },
-	{ 0,	XF86XK_MonBrightnessDown,	spawn,		SHCMD("bright dec 5; pkill -RTMIN+2 dwmblocks") },
+	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("bright inc 10; pkill -RTMIN+2 dwmblocks") },
+	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("bright dec 10; pkill -RTMIN+2 dwmblocks") },
 	{ ShiftMask,	XF86XK_MonBrightnessDown,	spawn,		SHCMD("bright set 1; pkill -RTMIN+2 dwmblocks") },
 	{ ShiftMask,	XF86XK_MonBrightnessUp,	spawn,		SHCMD("bright set 100; pkill -RTMIN+2 dwmblocks") },
 
@@ -303,4 +299,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-

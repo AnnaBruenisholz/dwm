@@ -1580,8 +1580,8 @@ setfullscreen(Client *c, int fullscreen)
 			PropModeReplace, (unsigned char*)0, 0);
 		c->isfullscreen = 0;
 		c->isfloating = c->oldstate;
+		c->bw = c->oldbw;
 		if(c->isfloating){
-			c->bw = c->oldbw;
 			c->x = c->oldx;
 			c->y = c->oldy;
 			c->w = c->oldw;
@@ -2687,4 +2687,3 @@ void
 spiral(Monitor *mon) {
 	fibonacci(mon, 0);
 }
-
